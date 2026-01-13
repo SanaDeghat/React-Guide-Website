@@ -115,7 +115,7 @@ h1 {
     margin-left: 5px;
     text-decoration: none;
     display: block; /* idt this is best practice but it lets me manipulate links with margins */
-    color: rgb(199, 199, 199);
+    color: rgb(179, 179, 179);
 }
 
 #sidebar a:not(.main-level):hover {
