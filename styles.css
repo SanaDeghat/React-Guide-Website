@@ -326,13 +326,13 @@ pre code {
 .rainbow-wiggle {
     display: inline-block;
     font-weight: 800;
-    background: linear-gradient(
+        background: linear-gradient(
         90deg,
-        #d91e84, /* vivid pink */
-        #8a2be2, /* deep purple */
-        #ff6b9e, /* soft bright pink */
-        #bd4b6c, /* dark rose */
-        #d91e84  /* back to vivid pink for a seamless loop */
+        #ff3385, /* hot pink */
+        #ff7eb3, /* soft pink */
+        #ffb347, /* peach */
+        #ff5e62, /* coral */
+        #ff3385  /* back to hot pink */
     );
     background-size: 200% auto;
     -webkit-background-clip: text;
