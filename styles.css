@@ -13,7 +13,14 @@
     font-style: normal;
     font-display: swap;
 }
+.embed {
+  margin: 16px 0;
+}
 
+.embed iframe {
+  background: white;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+}
 @font-face {
     font-family: "Phantom Sans";
     src: url("https://assets.hackclub.com/fonts/Phantom_Sans_0.7/Italic.woff")
@@ -104,13 +111,13 @@ h1 {
   /* rainbow gradient text */
   background: linear-gradient(
     90deg,
-    #b00020, 
-    #c04a00,
-    #8a6a00, 
-    #0b6b2a, 
-    #005f8a, 
-    #2a2a9e, 
-    #8a005f 
+    #ff3d3d,
+    #ffb23d,
+    #fff23d,
+    #3dff6a,
+    #3dd8ff,
+    #7a5cff,
+    #ff3dd8
   );
   -webkit-background-clip: text;
   background-clip: text;
