@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>React Guide</title>
+    <link href="styles.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="flexbox">
+      <!--rly want to use svelte for templating bc if not this will be a mess (this is a mess lol)-->
+      <div id="sidebar">
+        <a href="https://sleepover.hackclub.com" style="margin-left:-22px;" id="athena-link" target="_blank" rel="noopener noreferrer">
+          <img src="images/sleepover.webp" width="200px"/>
+        </a>
+        <ul id="nav">
+          <li class="main-level"><a href="./">Home</a></li>
+          <li><a href="./">What is React?</a></li>
+          <li><a href="info.html">Why React?</a></li>
+
+          <li class="main-level"><a href="tutorial.html">Tutorial: Tic-Tac-Toe </a></li>
+          <li><a href="getting-started.html">Setup for the tutorial</a></li>
+          <li><a href="tutorial-overview.html">Overview</a></li>
+          <li><a href="complete-game.html">Completing the game</a></li>
+          <li><a href="time-travel.html">Adding time travel</a></li>
+
+          <li class="main-level current"><a>How to:</a></li>
+          <li><a href="create-and-nest.html">Create and nest components</a></li>
+          <li><a href="add-markup.html">Add markup and styles</a></li>
+          <li><a href="display-data.html">Display data</a></li>
+          <li><a href="conditions-and-lists.html">Render conditions and lists</a></li>
+          <li class="current"><a href="events-and-state.html">Respond to events and update the screen</a></li>
+          <li><a href="sharing-data.html">Share data between components</a></li>
+
+          <li class="main-level"><a href="other-resources.html">More Resources</a></li>
+        </ul>
+      </div>
+
+      <div id="main-content">
+        <div id="spotlight">
+          <div id="spotlight-overlay"></div>
+        </div>
+
+        <h1>Respond to events and update the screen</h1>
+
+        <h2>Responding to events</h2>
+        <p>
+          You can respond to events by declaring event handler functions inside your components.
+          Here’s a click handler:
+        </p>
+
+        <div class="code">function MyButton() {
+  function handleClick() {
+    alert('You clicked me!');
+  }
+
+  return (
+    &lt;button onClick={handleClick}&gt;
+      Click me
+    &lt;/button&gt;
+  );
+}</div>
+
+        <p>
+          Notice how <code>onClick={handleClick}</code> has no parentheses.
+          Don’t call the handler — just pass it. React calls it when the user clicks.
+        </p>
+
+        <h2>Updating the screen with state</h2>
+        <p>
+          If you want your component to “remember” something (like a click count),
+          you use <b>state</b>.
+        </p>
+
+        <p>First, import <code>useState</code> from React:</p>
+        <div class="code">import { useState } from 'react';</div>
+
+        <p>Then declare state inside the component:</p>
+        <div class="code">function MyButton() {
+  const [count, setCount] = useState(0);
+  // ...
+}</div>
+
+        <p>Example: increment a counter on click:</p>
+        <div class="code">function MyButton() {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    setCount(count + 1);
+  }
+
+  return (
+    &lt;button onClick={handleClick}&gt;
+      Clicked {count} times
+    &lt;/button&gt;
+  );
+}</div>
+
+        <h2>Each component instance gets its own state</h2>
+        <p>
+          If you render the same component multiple times, each one has its own independent state:
+        </p>
+
+        <div class="code">import { useState } from 'react';
+
+export default function MyApp() {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Counters that update separately&lt;/h1&gt;
+      &lt;MyButton /&gt;
+      &lt;MyButton /&gt;
+    &lt;/div&gt;
+  );
+}
+
+function MyButton() {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    setCount(count + 1);
+  }
+
+  return (
+    &lt;button onClick={handleClick}&gt;
+      Clicked {count} times
+    &lt;/button&gt;
+  );
+}</div>
+
+        <h2>Hooks rules (important)</h2>
+        <p>
+          Functions starting with <code>use</code> are called <b>Hooks</b>.
+          Hooks are more restrictive than regular functions:
+        </p>
+
+        <ul>
+          <li>Only call Hooks at the top level of your component (not inside loops, conditions, or nested functions)</li>
+          <li>If you need a hook inside a conditional UI path, extract a new component</li>
+        </ul>
+
+        <div class="next-buttons">
+          <a href="sharing-data.html" class="nav-button">
+            <div class="next-text">
+              <div>Next:</div>
+              <img src="images/right-arrow.svg" height="20px"/>
+            </div>
+            <div class="next-link">share data between components (lifting state up)</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="spotlight.js"></script>
+  </body>
+</html>

@@ -8,11 +8,9 @@
 
   <body>
     <div class="flexbox">
-      <!-- rly want to use svelte for templating bc if not this will be a mess (this is a mess lol) -->
       <div id="sidebar">
         <a
           href="https://sleepover.hackclub.com"
-          style="margin-left:-22px;"
           id="athena-link"
           target="_blank"
           rel="noopener noreferrer"
@@ -31,7 +29,7 @@
           <li><a href="complete-game.html">Completing the game</a></li>
           <li class="current"><a href="time-travel.html">Adding time travel</a></li>
 
-          <li class="main-level"><a href="api-key.html">How to:</a></li>
+          <li class="main-level"><a>How to:</a></li>
           <li><a href="create-and-nest.html">Create and nest components</a></li>
           <li><a href="add-markup.html">Add markup and styles</a></li>
           <li><a href="display-data.html">Display data</a></li>
@@ -39,7 +37,7 @@
           <li><a href="events-and-state.html">Respond to events and update the screen</a></li>
           <li><a href="sharing-data.html">Share data between components</a></li>
 
-          <li class="main-level"><a href="other-apis.html">More Resources</a></li>
+          <li class="main-level"><a href="other-resources.html">More Resources</a></li>
         </ul>
       </div>
 
@@ -66,7 +64,7 @@
           <code>history</code>.
         </p>
 
-        <pre><code>[
+        <div class="code">[
   // Before first move
   [null, null, null, null, null, null, null, null, null],
   // After first move
@@ -74,7 +72,7 @@
   // After second move
   [null, null, null, null, 'X', null, null, null, 'O'],
   // ...
-]</code></pre>
+]</div>
 
         <h2>Step 2: Lift state up (again) into a new Game component</h2>
         <p>
@@ -82,7 +80,7 @@
           <code>Game</code>.
         </p>
 
-        <pre><code>function Board() {
+        <div class="code">function Board() {
   // ...
 }
 
@@ -97,7 +95,7 @@ export default function Game() {
       &lt;/div&gt;
     &lt;/div&gt;
   );
-}</code></pre>
+}</div>
 
         <p>
           Notice we removed <code>export default</code> from <code>Board</code> and put it on <code>Game</code>.
@@ -110,7 +108,7 @@ export default function Game() {
           From <code>currentMove</code> we can calculate whose turn it is.
         </p>
 
-        <pre><code>export default function Game() {
+        <div class="code">export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
 
@@ -118,7 +116,7 @@ export default function Game() {
   const currentSquares = history[currentMove];
 
   // ...
-}</code></pre>
+}</div>
 
         <h2>Step 4: Make Board “controlled” by props</h2>
         <p>
@@ -126,7 +124,7 @@ export default function Game() {
           and an <code>onPlay</code> function to call when someone makes a move.
         </p>
 
-        <pre><code>function Board({ xIsNext, squares, onPlay }) {
+        <div class="code">function Board({ xIsNext, squares, onPlay }) {
   function handleClick(i) {
     if (calculateWinner(squares) || squares[i]) return;
 
@@ -136,7 +134,7 @@ export default function Game() {
   }
 
   // ...
-}</code></pre>
+}</div>
 
         <h2>Step 5: Update history when a move happens</h2>
         <p>
@@ -148,11 +146,11 @@ export default function Game() {
           <li>move the pointer (<code>currentMove</code>) to the latest move</li>
         </ul>
 
-        <pre><code>function handlePlay(nextSquares) {
+        <div class="code">function handlePlay(nextSquares) {
   const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
   setHistory(nextHistory);
   setCurrentMove(nextHistory.length - 1);
-}</code></pre>
+}</div>
 
         <h2>Step 6: Render the move list + implement jumpTo</h2>
         <p>
@@ -160,7 +158,7 @@ export default function Game() {
           so React can keep track of it without getting grumpy.
         </p>
 
-        <pre><code>function jumpTo(nextMove) {
+        <div class="code">function jumpTo(nextMove) {
   setCurrentMove(nextMove);
 }
 
@@ -171,7 +169,7 @@ const moves = history.map((squares, move) =&gt; {
       &lt;button onClick={() =&gt; jumpTo(move)}&gt;{description}&lt;/button&gt;
     &lt;/li&gt;
   );
-});</code></pre>
+});</div>
 
         <p>
           When you click a move, the board instantly updates because we’re rendering:
@@ -184,7 +182,7 @@ const moves = history.map((squares, move) =&gt; {
           Here’s the full React file for the finished time-travel game:
         </p>
 
-        <pre><code>import { useState } from 'react';
+        <div class="code">import { useState } from 'react';
 
 function Square({ value, onSquareClick }) {
   return (
@@ -293,10 +291,10 @@ function calculateWinner(squares) {
     }
   }
   return null;
-}</code></pre>
+}</div>
 
         <p>
-          You did it. Your tic-tac-toe game now:
+          You did it! Your tic-tac-toe game now:
         </p>
         <ul>
           <li>lets you play</li>
@@ -304,16 +302,27 @@ function calculateWinner(squares) {
           <li>stores history</li>
           <li>lets you jump back in time and rewrite history (responsibly)</li>
         </ul>
+
         <h2>What now?</h2>
         <p>
-          Well my beatifull friend who read this far, im very gratefull for your time but tragically you cant quiet submit this to sleepover(or any other YSWS) yet!) First you have to add a bit of your touch to it. Here are some ideas for modification tho! 
-          1) For the current move only, show “You are at move #…” instead of a button.
-2)Rewrite Board to use two loops to make the squares instead of hardcoding them.
-3)Add a toggle button that lets you sort the moves in either ascending or descending order.
-4)When someone wins, highlight the three squares that caused the win (and when no one wins, display a message about the result being a draw).
-5)Display the location for each move in the format (row, col) in the move history list.
+          Well, my beautiful friend who read this far, I'm very grateful for your time! But tragically, you can't quite submit this to Sleepover (or any other YSWS) just yet. First, you have to add a little bit of your own touch to it! ✨
         </p>
-        <p>From here you can look at more resources on the side bar or go explore React yourself. Always remamber when in doubt ask in slack.(or <span class="rainbow-wiggle">Soogle</span>)</p>
+        <p>
+          Here are some cute ideas for modifications to make it your own:
+        </p>
+        <ul>
+          <li>For the current move only, show “You are at move #…” instead of a button.</li>
+          <li>Rewrite the Board to use two loops to make the squares instead of hardcoding them.</li>
+          <li>Add a toggle button that lets you sort the moves in either ascending or descending order.</li>
+          <li>When someone wins, highlight the three squares that caused the win (and when no one wins, display a message about the result being a draw).</li>
+          <li>Display the location for each move in the format <code>(row, col)</code> in the move history list.</li>
+        </ul>
+        <p>
+          From here, you can check out the More Resources tab on the sidebar, or go explore React yourself! Always remember: when in doubt, ask in the Slack (or <span class="rainbow-wiggle">Google</span> it 💖).
+        </p>
+<p> <b>
+          If you made something cool with React share it and tag me @sanadeghat Id love to see it!!
+       </b> </p>
         <div class="next-buttons">
           <a href="tutorial.html" class="nav-button">
             <div class="next-text">

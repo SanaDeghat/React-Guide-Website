@@ -11,7 +11,6 @@
 
   <body>
     <div class="flexbox">
-    <!--rly want to use svelte for templating bc if not this will be a mess-->
     <div id="sidebar">
         <a href="https://sleepover.hackclub.com" style="margin-left:-22px;" id="athena-link" target="_blank" rel="noopener noreferrer"><img src="images/sleepover.webp" width="200px"/></a>
         <ul id="nav">
@@ -25,7 +24,7 @@
             <li><a href="complete-game.html">Completing the game</a></li>
             <li><a href="time-travel.html">Adding time travel</a></li>
 
-            <li class="main-level"><a href="api-key.html">How to:</a></li>
+            <li class="main-level">How to:</a></li>
             <li><a href="create-and-nest.html">Create and nest components</a></li>
             <li><a href="add-markup.html">Add markup and styles</a></li>
             <li><a href="display-data.html">Display data</a></li>
@@ -33,7 +32,7 @@
             <li><a href="events-and-state.html">Respond to events and update the screen</a></li>
             <li><a href="sharing-data.html">Share data between components</a></li>
 
-            <li class="main-level"><a href="other-apis.html">More Resources</a></li>
+            <li class="main-level"><a href="other-resources.html">More Resources</a></li>
         </ul>
     </div>
     
@@ -44,30 +43,30 @@
         <h1>Okay… but why not just write normal HTML/JS?</h1>
         <p></p>
         <h2>1) Because building websites gets complicated fast</h2>
-        <p>A simple page? Static wesbsites? Thats light work But the moment your website needs to update itself, then things can get really messy really fast</p>
+        <p>A simple page? Static websites? That's light work. But the moment your website needs to update itself, things can get really messy, really fast.</p>
         <h2>2) The “manual DOM” problem</h2>
-        <p>In plain Java Script youre forced to do a lot of:</p>
-        <p> “find the element → change the text → hide this → show that → remember the state yourself”.</p>
-        <p> this usually works untill it doenst. and when it doesny its really hard to debug </p>
-        <h2>3) React’s strength: building UI from components</h2>
+        <p>In plain JavaScript you're forced to do a lot of:</p>
+        <p>“find the element → change the text → hide this → show that → remember the state yourself”.</p>
+        <p>This usually works until it doesn't. And when it doesn't, it's really hard to debug.</p>
+        <h2>3) <span class="rainbow-wiggle">React</span>’s strength: building UI from components</h2>
         <p>
-          Components are meant to be like like LEGO bricks for your interface: small pieces you can reuse,
+          Components are meant to be like LEGO bricks for your interface: small pieces you can reuse,
           nest, and move around without rewriting the whole website like a tragic novel.
         </p>
         <h2>4) React updates the screen for you</h2>
         <p>
-          you describe what the UI should look like for a given state and react makes it happen when the state comes.
+          You describe what the UI should look like for a given state and React makes it happen when the state changes.
         </p>
-        <h2>5) Bonus: Scalibility</h2>
+        <h2>5) Bonus: Scalability</h2>
         <p>
-         Its really easy to scale, What else could you ask for?
+         It's really easy to scale. What else could you ask for?
         </p>
         <div class="next-buttons">
           <a href="getting-started.html" class="nav-button">
             <div class="next-text">
               <div>Next:</div>
               <img src="images/right-arrow.svg" height="20px"/></div>
-            <div class="next-link">get started with CatAPI!</div>
+            <div class="next-link">get started with the tutorial!</div>
           </a>
         </div>
     </div>

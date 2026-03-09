@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>React Guide</title>
+    <link href="styles.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="flexbox">
+      <!--rly want to use svelte for templating bc if not this will be a mess (this is a mess lol)-->
+      <div id="sidebar">
+        <a href="https://sleepover.hackclub.com" style="margin-left:-22px;" id="athena-link" target="_blank" rel="noopener noreferrer">
+          <img src="images/sleepover.webp" width="200px"/>
+        </a>
+        <ul id="nav">
+          <li class="main-level"><a href="./">Home</a></li>
+          <li><a href="./">What is React?</a></li>
+          <li><a href="info.html">Why React?</a></li>
+
+          <li class="main-level"><a href="tutorial.html">Tutorial: Tic-Tac-Toe </a></li>
+          <li><a href="getting-started.html">Setup for the tutorial</a></li>
+          <li><a href="tutorial-overview.html">Overview</a></li>
+          <li><a href="complete-game.html">Completing the game</a></li>
+          <li><a href="time-travel.html">Adding time travel</a></li>
+
+          <li class="main-level current">How to:</a></li>
+          <li><a href="create-and-nest.html">Create and nest components</a></li>
+          <li class="current"><a href="add-markup.html">Add markup and styles</a></li>
+          <li><a href="display-data.html">Display data</a></li>
+          <li><a href="conditions-and-lists.html">Render conditions and lists</a></li>
+          <li><a href="events-and-state.html">Respond to events and update the screen</a></li>
+          <li><a href="sharing-data.html">Share data between components</a></li>
+
+          <li class="main-level"><a href="other-resources.html">More Resources</a></li>
+        </ul>
+      </div>
+
+      <div id="main-content">
+        <div id="spotlight">
+          <div id="spotlight-overlay"></div>
+        </div>
+
+        <h1>Add markup and styles</h1>
+
+        <h2>Writing markup with JSX</h2>
+        <p>
+          The markup syntax you’ve seen in React examples is called <b>JSX</b>.
+          It’s basically “HTML-ish syntax inside JavaScript.”
+        </p>
+
+        <p>
+          JSX is stricter than HTML:
+        </p>
+
+        <ul>
+          <li>You must close tags like <code>&lt;br /&gt;</code></li>
+          <li>A component can’t return multiple JSX elements unless they’re wrapped in one parent</li>
+        </ul>
+
+        <p>
+          Here’s an example using a Fragment wrapper (<code>&lt;&gt; ... &lt;/&gt;</code>):
+        </p>
+
+        <div class="code">function AboutPage() {
+  return (
+    &lt;&gt;
+      &lt;h1&gt;About&lt;/h1&gt;
+      &lt;p&gt;Hello there.&lt;br /&gt;How do you do?&lt;/p&gt;
+    &lt;/&gt;
+  );
+}</div>
+
+        <h2>Adding styles</h2>
+        <p>
+          In React, you specify a CSS class with <code>className</code>. It works like HTML’s <code>class</code>:
+        </p>
+
+        <div class="code">&lt;img className="avatar" /&gt;</div>
+
+        <p>Then you write the CSS rules in a separate CSS file:</p>
+
+        <div class="code">/* In your CSS */
+.avatar {
+  border-radius: 50%;
+}</div>
+
+        <p>
+          React doesn’t force one styling system. You can do plain CSS (like this site),
+          CSS modules, Tailwind, styled-components, etc.
+        </p>
+
+        <div class="next-buttons">
+          <a href="display-data.html" class="nav-button">
+            <div class="next-text">
+              <div>Next:</div>
+              <img src="images/right-arrow.svg" height="20px"/>
+            </div>
+            <div class="next-link">display data in JSX</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="spotlight.js"></script>
+  </body>
+</html>

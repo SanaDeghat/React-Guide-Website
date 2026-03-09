@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>React Guide</title>
+    <link href="styles.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="flexbox">
+      <!--rly want to use svelte for templating bc if not this will be a mess (this is a mess lol)-->
+      <div id="sidebar">
+        <a href="https://sleepover.hackclub.com" style="margin-left:-22px;" id="athena-link" target="_blank" rel="noopener noreferrer">
+          <img src="images/sleepover.webp" width="200px"/>
+        </a>
+        <ul id="nav">
+          <li class="main-level"><a href="./">Home</a></li>
+          <li><a href="./">What is React?</a></li>
+          <li><a href="info.html">Why React?</a></li>
+
+          <li class="main-level"><a href="tutorial.html">Tutorial: Tic-Tac-Toe </a></li>
+          <li><a href="getting-started.html">Setup for the tutorial</a></li>
+          <li><a href="tutorial-overview.html">Overview</a></li>
+          <li><a href="complete-game.html">Completing the game</a></li>
+          <li><a href="time-travel.html">Adding time travel</a></li>
+
+          <li class="main-level current"><a>How to:</a></li>
+          <li><a href="create-and-nest.html">Create and nest components</a></li>
+          <li><a href="add-markup.html">Add markup and styles</a></li>
+          <li class="current"><a href="display-data.html">Display data</a></li>
+          <li><a href="conditions-and-lists.html">Render conditions and lists</a></li>
+          <li><a href="events-and-state.html">Respond to events and update the screen</a></li>
+          <li><a href="sharing-data.html">Share data between components</a></li>
+
+          <li class="main-level"><a href="other-resources.html">More Resources</a></li>
+        </ul>
+      </div>
+
+      <div id="main-content">
+        <div id="spotlight">
+          <div id="spotlight-overlay"></div>
+        </div>
+
+        <h1>Display data</h1>
+
+        <p>
+          JSX lets you put markup into JavaScript.
+          Curly braces <code>{ }</code> let you “escape back” into JavaScript so you can display variables.
+        </p>
+
+        <h2>Show a value in JSX</h2>
+        <div class="code">return (
+  &lt;h1&gt;
+    {user.name}
+  &lt;/h1&gt;
+);</div>
+
+        <h2>Use variables inside attributes</h2>
+        <p>
+          In JSX attributes, use curly braces instead of quotes when you want a JavaScript value.
+        </p>
+
+        <div class="code">return (
+  &lt;img
+    className="avatar"
+    src={user.imageUrl}
+  /&gt;
+);</div>
+
+        <h2>A full example (text + image + inline styles)</h2>
+        <p>
+          You can also use expressions inside curly braces (like string concatenation).
+          And <code>style={{ ... }}</code> is a plain JS object.
+        </p>
+
+        <div class="code">const user = {
+  name: 'Hedy Lamarr',
+  imageUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
+  imageSize: 90,
+};
+
+export default function Profile() {
+  return (
+    &lt;&gt;
+      &lt;h1&gt;{user.name}&lt;/h1&gt;
+      &lt;img
+        className="avatar"
+        src={user.imageUrl}
+        alt={'Photo of ' + user.name}
+        style={{
+          width: user.imageSize,
+          height: user.imageSize
+        }}
+      /&gt;
+    &lt;/&gt;
+  );
+}</div>
+
+        <div class="next-buttons">
+          <a href="conditions-and-lists.html" class="nav-button">
+            <div class="next-text">
+              <div>Next:</div>
+              <img src="images/right-arrow.svg" height="20px"/>
+            </div>
+            <div class="next-link">render conditions and lists</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="spotlight.js"></script>
+  </body>
+</html>

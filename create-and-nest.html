@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>React Guide</title>
+    <link href="styles.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="flexbox">
+      <!--rly want to use svelte for templating bc if not this will be a mess (this is a mess lol)-->
+      <div id="sidebar">
+        <a href="https://sleepover.hackclub.com" style="margin-left:-22px;" id="athena-link" target="_blank" rel="noopener noreferrer">
+          <img src="images/sleepover.webp" width="200px"/>
+        </a>
+        <ul id="nav">
+          <li class="main-level"><a href="./">Home</a></li>
+          <li><a href="./">What is React?</a></li>
+          <li><a href="info.html">Why React?</a></li>
+
+          <li class="main-level"><a href="tutorial.html">Tutorial: Tic-Tac-Toe </a></li>
+          <li><a href="getting-started.html">Setup for the tutorial</a></li>
+          <li><a href="tutorial-overview.html">Overview</a></li>
+          <li><a href="complete-game.html">Completing the game</a></li>
+          <li><a href="time-travel.html">Adding time travel</a></li>
+
+          <li class="main-level current"><a>How to:</a></li>
+          <li class="current"><a href="create-and-nest.html">Create and nest components</a></li>
+          <li><a href="add-markup.html">Add markup and styles</a></li>
+          <li><a href="display-data.html">Display data</a></li>
+          <li><a href="conditions-and-lists.html">Render conditions and lists</a></li>
+          <li><a href="events-and-state.html">Respond to events and update the screen</a></li>
+          <li><a href="sharing-data.html">Share data between components</a></li>
+
+          <li class="main-level"><a href="other-resources.html">More Resources</a></li>
+        </ul>
+      </div>
+
+      <div id="main-content">
+        <div id="spotlight">
+          <div id="spotlight-overlay"></div>
+        </div>
+
+        <h1>Create and nest components</h1>
+
+        <p>
+          React apps are made out of <b>components</b>. A component is a piece of the UI (user interface)
+          that has its own logic and appearance.
+        </p>
+
+        <p>
+          A component can be as small as a button, or as large as an entire page.
+          The main idea is: instead of one huge HTML file, you build lots of small reusable pieces.
+        </p>
+
+        <h2>Step 1: Make a component</h2>
+        <p>
+          React components are JavaScript functions that return markup (usually JSX).
+          Here’s a tiny component called <code>MyButton</code>:
+        </p>
+
+        <div class="code">function MyButton() {
+  return (
+    &lt;button&gt;I'm a button&lt;/button&gt;
+  );
+}</div>
+
+        <h2>Step 2: Nest it inside another component</h2>
+        <p>
+          Now that you’ve declared <code>MyButton</code>, you can use it inside another component
+          just like an HTML tag:
+        </p>
+
+        <div class="code">export default function MyApp() {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Welcome to my app&lt;/h1&gt;
+      &lt;MyButton /&gt;
+    &lt;/div&gt;
+  );
+}</div>
+
+        <h2>Important: Components must start with a capital letter</h2>
+        <p>
+          Notice that <code>&lt;MyButton /&gt;</code> starts with a capital letter.
+          That’s how you know it’s a React component.
+        </p>
+
+        <ul>
+          <li><b>React components</b> must start with a capital letter: <code>MyButton</code>, <code>ProfileCard</code>, <code>ShoppingList</code></li>
+          <li><b>HTML tags</b> are lowercase: <code>&lt;div&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;img&gt;</code></li>
+        </ul>
+
+        <p>
+          If you accidentally name your component starting with lowercase (like <code>myButton</code>),
+          React will treat it like a regular HTML element and your component won’t render correctly.
+        </p>
+
+        <div class="next-buttons">
+          <a href="add-markup.html" class="nav-button">
+            <div class="next-text">
+              <div>Next:</div>
+              <img src="images/right-arrow.svg" height="20px"/>
+            </div>
+            <div class="next-link">add markup and styles (JSX + CSS)</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="spotlight.js"></script>
+  </body>
+</html>

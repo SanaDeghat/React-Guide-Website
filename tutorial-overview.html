@@ -8,15 +8,14 @@
 
   <body>
     <div class="flexbox">
-      <!-- rly want to use svelte for templating bc if not this will be a mess (this is a mess lol) -->
       <div id="sidebar">
-        <a href="https://sleepover.hackclub.com" style="margin-left:-22px;" id="athena-link" target="_blank" rel="noopener noreferrer">
+        <a href="https://sleepover.hackclub.com" id="athena-link" target="_blank" rel="noopener noreferrer">
           <img src="images/sleepover.webp" width="200px"/>
         </a>
         <ul id="nav">
           <li class="main-level"><a href="index.html">Home</a></li>
           <li><a href="index.html">What is React?</a></li>
-          <li><a href="info.html">Why React?</a></li>
+          <li><a href="info.html">Why is React?</a></li>
 
           <li class="main-level current"><a href="tutorial.html">Tutorial: Tic-Tac-Toe </a></li>
           <li><a href="getting-started.html">Setup for the tutorial</a></li>
@@ -24,7 +23,7 @@
           <li><a href="complete-game.html">Completing the game</a></li>
           <li><a href="time-travel.html">Adding time travel</a></li>
 
-          <li class="main-level"><a href="api-key.html">How to:</a></li>
+          <li class="main-level"><a">How to:</a></li>
           <li><a href="create-and-nest.html">Create and nest components</a></li>
           <li><a href="add-markup.html">Add markup and styles</a></li>
           <li><a href="display-data.html">Display data</a></li>
@@ -32,7 +31,7 @@
           <li><a href="events-and-state.html">Respond to events and update the screen</a></li>
           <li><a href="sharing-data.html">Share data between components</a></li>
 
-          <li class="main-level"><a href="other-apis.html">More Resources</a></li>
+          <li class="main-level"><a href="other-resources.html">More Resources</a></li>
         </ul>
       </div>
 
@@ -44,25 +43,20 @@
         <h1>Overview</h1>
 
         <p>
-          Now that you’re set up locally, it’s time to take a peek at React.
+          Now that you’re set up locally, it’s time to take a peek at <span class="rainbow-wiggle">React</span>.
           Don’t worry, React doesn’t bite. (The error messages sometimes do.)
         </p>
 
         <h2>Three things you want to keep open</h2>
         <ol>
-          <li>
-            <b>VS Code</b> — where you edit your files (your glorious code cavern).
-          </li>
-          <li>
-            <b>Your terminal</b> — where you run the dev server (usually <code>npm run dev</code> for Vite).
-          </li>
-          <li>
-            <b>Your browser</b> — where you see your app at <code>http://localhost:5173</code> (or whatever it prints).
-          </li>
+          <li><b>VS Code</b> — where you edit your files (your glorious code cavern).</li>
+          <li><b>Your terminal</b> — where you run the dev server (usually <code>npm run dev</code> for Vite).</li>
+          <li><b>Your browser</b> — where you see your app at <code>http://localhost:5173</code> (or whatever it prints).</li>
         </ol>
 
         <p>
-          When you save a file in VS Code, the browser usually updates automatically. To make it even easier you can install <b>Live Preview</b> from Microsoft which is what I use</p>
+          When you save a file in VS Code, the browser usually updates automatically. To make it even easier you can install <b>Live Preview</b> from Microsoft which is what I use.
+        </p>
 
         <h2>The starter code</h2>
         <p>
@@ -70,36 +64,16 @@
           It should start with something small and suspiciously calm, like:
         </p>
 
-        <div class="embed">
-  <iframe
-    title="Tic-Tac-Toe sandbox"
-    src="https://codesandbox.io/embed/c4sdxh?fontsize=14&hidenavigation=1&theme=light&view=editor"
-    loading="lazy"
-    style="width: 100%; height: 100px; border: 1px solid rgba(0,0,0,0.12); border-radius: 12px; overflow: hidden;"
-    allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-    sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  ></iframe>
-  
-</div>
-
-
-        <p>
-          If your browser shows a single square with an X, congrats: you have successfully summoned React.
-        </p>
+        <div class="code">export default function Square() {
+  return &lt;button className="square"&gt;X&lt;/button&gt;;
+}</div>
 
         <h2>What even is a component?</h2>
-        <p>
-          This is a component:
-        </p>
+        <p>This is a component:</p>
 
-        <iframe
-    title="Tic-Tac-Toe sandbox"
-    src="https://codesandbox.io/embed/c4sdxh?fontsize=14&hidenavigation=1&theme=light&view=editor"
-    loading="lazy"
-    style="width: 100%; height: 100px; border: 1px solid rgba(0,0,0,0.12); border-radius: 12px; overflow: hidden;"
-    allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-    sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  ></iframe>
+        <div class="code">export default function Square() {
+  return &lt;button className="square"&gt;X&lt;/button&gt;;
+}</div>
 
         <p>
           A <b>component</b> is just a reusable chunk of UI.
@@ -113,7 +87,7 @@
           <li><code>&lt;button&gt;</code> here is written in <b>JSX</b> (HTML-ish syntax inside JavaScript).</li>
           <li><code>className="square"</code> connects it to CSS (React uses <code>className</code>, not <code>class</code>).</li>
         </ul>
-<br>
+        
         <h2>styles.css (aka: “make it not ugly”)</h2>
         <p>
           Your styles live in something like <code>src/styles.css</code>.
@@ -127,38 +101,31 @@
         </p>
 
         <h2>Building the board</h2>
-        <p>
-          If you try to return two buttons side-by-side like this:
-        </p>
+        <p>If you try to return two buttons side-by-side like this:</p>
 
-        <iframe
-    title="Tic-Tac-Toe sandbox"
-    src="https://codesandbox.io/embed/wxqrhq?fontsize=14&hidenavigation=1&theme=light&view=editor"
-    loading="lazy"
-    style="width: 100%; height: 100px; border: 1px solid rgba(0,0,0,0.12); border-radius: 12px; overflow: hidden;"
-    allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-    sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  ></iframe>
+        <div class="code">export default function Square() {
+  return &lt;button className="square"&gt;X&lt;/button&gt;&lt;button className="square"&gt;X&lt;/button&gt;;
+}</div>
 
         <p>
           React will complain because a component must return <b>one</b> parent element.
           The fix is a Fragment: <code>&lt;&gt; ... &lt;/&gt;</code>
         </p>
 
-        <pre><code>export default function Square() {
+        <div class="code">export default function Square() {
   return (
     &lt;&gt;
       &lt;button className="square"&gt;X&lt;/button&gt;
       &lt;button className="square"&gt;X&lt;/button&gt;
     &lt;/&gt;
   );
-}</code></pre>
+}</div>
 
         <p>
           Next you’ll make 9 squares, realize they’re in one long line (pain), and then group them into rows:
         </p>
       
-        <pre><code>export default function Board() {
+        <div class="code">export default function Board() {
   return (
     &lt;&gt;
       &lt;div className="board-row"&gt;
@@ -178,57 +145,34 @@
       &lt;/div&gt;
     &lt;/&gt;
   );
+}</div>
 
-}</code></pre>
-<div class="note">
-        <h3>Note: </h3>
-        <p>Psssst… That’s a lot to type! It’s okay to copy and paste code from this page. However, if you’re up for a little challenge, I recommend only copying code that you’ve manually typed at least once yourself.</p>
-      </div>
+        <div class="note">
+          <h3>Note:</h3>
+          <p>Psssst… That’s a lot to type! It’s okay to copy and paste code from this page. However, if you’re up for a little challenge, I recommend only copying code that you’ve manually typed at least once yourself.</p>
+        </div>
+
         <h2>Passing data with props</h2>
         <p>
           Instead of writing 9 different buttons by hand forever, we make a reusable <code>Square</code> component,
           and pass it different values using <b>props</b>.
         </p>
 
-        <pre><code>function Square({ value }) {
+        <div class="code">function Square({ value }) {
   return &lt;button className="square"&gt;{value}&lt;/button&gt;;
-}
-
-export default function Board() {
-  return (
-    &lt;&gt;
-      &lt;div className="board-row"&gt;
-        &lt;Square value="1" /&gt;
-        &lt;Square value="2" /&gt;
-        &lt;Square value="3" /&gt;
-      &lt;/div&gt;
-      &lt;div className="board-row"&gt;
-        &lt;Square value="4" /&gt;
-        &lt;Square value="5" /&gt;
-        &lt;Square value="6" /&gt;
-      &lt;/div&gt;
-      &lt;div className="board-row"&gt;
-        &lt;Square value="7" /&gt;
-        &lt;Square value="8" /&gt;
-        &lt;Square value="9" /&gt;
-      &lt;/div&gt;
-    &lt;/&gt;
-  );
-}</code></pre>
+}</div>
 
         <p>
           The curly braces <code>{value}</code> are the “escape hatch” from JSX into JavaScript.
           Without them, React thinks you literally want the word <code>value</code>.
         </p>
 
-        <h2>Making it interactive <a class="clickble" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">(it clicks!)</a></h2>
-        <p>
-          Next you’ll add an <code>onClick</code> handler:
-        </p>
+        <h2>Making it interactive <a class="external" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">(it clicks!)</a></h2>
+        <p>Next you’ll add an <code>onClick</code> handler:</p>
 
-        <pre><code>function Square({ value }) {
+        <div class="code">function Square({ value }) {
   function handleClick() {
-    console.log('clicked!');
+    console.log("clicked!");
   }
 
   return (
@@ -236,7 +180,7 @@ export default function Board() {
       {value}
     &lt;/button&gt;
   );
-}</code></pre>
+}</div>
 
         <p>
           If you’re running locally, open your browser DevTools Console to see that log.
@@ -248,13 +192,13 @@ export default function Board() {
           That’s <b>state</b>, and React gives us <code>useState</code>.
         </p>
 
-        <pre><code>import { useState } from 'react';
+        <div class="code">import { useState } from "react";
 
 function Square() {
   const [value, setValue] = useState(null);
 
   function handleClick() {
-    setValue('X');
+    setValue("X");
   }
 
   return (
@@ -262,7 +206,7 @@ function Square() {
       {value}
     &lt;/button&gt;
   );
-}</code></pre>
+}</div>
 
         <p>
           Every time you call <code>setValue</code>, React re-renders the component.

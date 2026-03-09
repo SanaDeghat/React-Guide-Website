@@ -8,11 +8,9 @@
 
   <body>
     <div class="flexbox">
-      <!-- rly want to use svelte for templating bc if not this will be a mess (this is a mess lol) -->
       <div id="sidebar">
         <a
           href="https://sleepover.hackclub.com"
-          style="margin-left:-22px;"
           id="athena-link"
           target="_blank"
           rel="noopener noreferrer"
@@ -30,7 +28,7 @@
           <li class="current"><a href="complete-game.html">Completing the game</a></li>
           <li><a href="time-travel.html">Adding time travel</a></li>
 
-          <li class="main-level"><a href="api-key.html">How to:</a></li>
+          <li class="main-level"><a>How to:</a></li>
           <li><a href="create-and-nest.html">Create and nest components</a></li>
           <li><a href="add-markup.html">Add markup and styles</a></li>
           <li><a href="display-data.html">Display data</a></li>
@@ -38,7 +36,7 @@
           <li><a href="events-and-state.html">Respond to events and update the screen</a></li>
           <li><a href="sharing-data.html">Share data between components</a></li>
 
-          <li class="main-level"><a href="other-apis.html">More Resources</a></li>
+          <li class="main-level"><a href="other-resources.html">More Resources</a></li>
         </ul>
       </div>
 
@@ -52,10 +50,10 @@
         <p>
           You’ve built the basic ingredients: squares, clicks, and a board.
           Now we’re going to turn it into an <span class="rainbow-wiggle">actual game</span>:
-          players take turns, nobody can cheat by overwriting squares, and the app can announce a winner.
+          players take turns, nobody can cheat by overwriting squares, and the app can announce a winner!
         </p>
 
-        <h2>Lifting state up </h2>
+        <h2>Lifting state up</h2>
         <p>
           Right now, if every <code>Square</code> keeps its own state, the <code>Board</code> has no idea what’s going on.
           It’s like trying to run a group project where everyone keeps their notes on a napkin and refuses to share.
@@ -72,7 +70,7 @@
           Each slot is either <code>'X'</code>, <code>'O'</code>, or <code>null</code> (empty).
         </p>
 
-        <pre><code>import { useState } from 'react';
+        <div class="code">import { useState } from 'react';
 
 function Square({ value }) {
   return &lt;button className="square"&gt;{value}&lt;/button&gt;;
@@ -100,7 +98,7 @@ export default function Board() {
       &lt;/div&gt;
     &lt;/&gt;
   );
-}</code></pre>
+}</div>
 
         <p>
           At this point your board is empty again. That is what we want.
@@ -113,20 +111,20 @@ export default function Board() {
           So we pass a function down as a prop, and the square calls it when clicked.
         </p>
 
-        <pre><code>function Square({ value, onSquareClick }) {
+        <div class="code">function Square({ value, onSquareClick }) {
   return (
     &lt;button className="square" onClick={onSquareClick}&gt;
       {value}
     &lt;/button&gt;
   );
-}</code></pre>
+}</div>
 
         <p>
           Now add a <code>handleClick(i)</code> function in <code>Board</code>, and pass it to each square.
-          Important: we pass a function, we don’t call it during render so we use an arrow function.
+          Important: we pass a function, we don’t call it during render, so we use an arrow function.
         </p>
 
-        <pre><code>export default function Board() {
+        <div class="code">export default function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
 
   function handleClick(i) {
@@ -154,15 +152,15 @@ export default function Board() {
       &lt;/div&gt;
     &lt;/&gt;
   );
-}</code></pre>
+}</div>
 
         <h2>Step 3: Take turns (X, then O, then X…)</h2>
         <p>
-          Right now every click places an X, which is very pro X and not very fair to O.
-          Let’s track whose turn it is with a boolean called <code>xIsNext</code>.
+          Right now every click places an X, which is very pro-X and not very fair to O.
+          Let���s track whose turn it is with a boolean called <code>xIsNext</code>.
         </p>
 
-        <pre><code>export default function Board() {
+        <div class="code">export default function Board() {
   const [xIsNext, setXIsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
 
@@ -178,15 +176,15 @@ export default function Board() {
   }
 
   // ...
-}</code></pre>
+}</div>
 
-        <h2>Step 4: No overwriting ]</h2>
+        <h2>Step 4: No overwriting</h2>
         <p>
-          Try clicking the same square twice. Oops it gets overwriting. We dont want that.
+          Try clicking the same square twice. Oops, it gets overwritten! We don't want that.
           Fix it by returning early if the square is already filled.
         </p>
 
-        <pre><code>function handleClick(i) {
+        <div class="code">function handleClick(i) {
   if (squares[i]) {
     return;
   }
@@ -194,15 +192,14 @@ export default function Board() {
   nextSquares[i] = xIsNext ? 'X' : 'O';
   setSquares(nextSquares);
   setXIsNext(!xIsNext);
-}</code></pre>
+}</div>
 
-        <h2>Step 5: Declare a winner (prefferibly dramatically)</h2>
+        <h2>Step 5: Declare a winner (preferably dramatically)</h2>
         <p>
           Time for the judge. Add a helper function called <code>calculateWinner</code>.
-          
         </p>
 
-        <pre><code>function calculateWinner(squares) {
+        <div class="code">function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -220,13 +217,13 @@ export default function Board() {
     }
   }
   return null;
-}</code></pre>
+}</div>
 
         <p>
           Now prevent moves after someone has already won, and show a status message:
         </p>
 
-        <pre><code>export default function Board() {
+        <div class="code">export default function Board() {
   const [xIsNext, setXIsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
 
@@ -254,14 +251,17 @@ export default function Board() {
       {/* ... board rows here ... */}
     &lt;/&gt;
   );
-}</code></pre>
+}</div>
 
         <p>
-          Congrats. You now have a working tic-tac-toe game.
+          Congrats! You now have a working tic-tac-toe game.
           And you also learned like 80% of React’s most used functions:
           <b>components + props + state + lifting state up</b>.
           The remaining 20% is <span class="rainbow-wiggle">googling</span> error messages like a professional.
         </p>
+        <p> <b>
+          If you made something cool with React share it and tag me @sanadeghat Id love to see it!!
+       </b> </p>
 
         <div class="next-buttons">
           <a href="time-travel.html" class="nav-button">

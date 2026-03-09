@@ -1,32 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Gaegu&display=swap");
-/* fonts all from the athena website https://athena.hackclub.com */
 
 @font-face {
     font-family: "Phantom Sans";
-    src: url("https://assets.hackclub.com/fonts/Phantom_Sans_0.7/Regular.woff")
-            format("woff"),
-        url("https://assets.hackclub.com/fonts/Phantom_Sans_0.7/Regular.woff2")
-            format("woff2");
+    src: url("https://assets.hackclub.com/fonts/Phantom_Sans_0.7/Regular.woff") format("woff"),
+         url("https://assets.hackclub.com/fonts/Phantom_Sans_0.7/Regular.woff2") format("woff2");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
-.embed {
-  margin: 16px 0;
-}
 
-.embed iframe {
-  background: white;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.10);
-}
 @font-face {
     font-family: "Phantom Sans";
-    src: url("https://assets.hackclub.com/fonts/Phantom_Sans_0.7/Italic.woff")
-            format("woff"),
-        url("https://assets.hackclub.com/fonts/Phantom_Sans_0.7/Italic.woff2")
-            format("woff2");
+    src: url("https://assets.hackclub.com/fonts/Phantom_Sans_0.7/Italic.woff") format("woff"),
+         url("https://assets.hackclub.com/fonts/Phantom_Sans_0.7/Italic.woff2") format("woff2");
     font-weight: normal;
     font-style: italic;
     font-display: swap;
@@ -34,264 +22,37 @@
 
 @font-face {
     font-family: "Phantom Sans";
-    src: url("https://assets.hackclub.com/fonts/Phantom_Sans_0.7/Bold.woff")
-            format("woff"),
-        url("https://assets.hackclub.com/fonts/Phantom_Sans_0.7/Bold.woff2")
-            format("woff2");
+    src: url("https://assets.hackclub.com/fonts/Phantom_Sans_0.7/Bold.woff") format("woff"),
+         url("https://assets.hackclub.com/fonts/Phantom_Sans_0.7/Bold.woff2") format("woff2");
     font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
 :root {
-    font-family: "Phantom Sans";
+    font-family: "Phantom Sans", sans-serif;
+    --bg-color: #fff5f8d9;
+    --text-main: #5c474d;
+    --heading-color: #bd4b6c;
+    --accent-pink: #ffb6c1;
+    --accent-dark: #a05268;
+    --code-bg: #35222d;
 }
 
-html,
-body {
-    height: 100%;
-}
-
-.playfair-display {
-    font-family: "Playfair Display", serif;
-}
-
-.handwritten {
-    font-family: "Gaegu", sans-serif;
-}
-
-#nav {
-    list-style: none;
-    padding: 0;
-}
-
-.main-level a {
-    margin-top: 20px !important;
+html, body {
+    min-height: 100vh; /* Changed from height: 100% so it never cuts off */
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    margin: 0;
 }
 
 .flexbox {
     display: flex;
     flex-direction: row;
-    min-height: 100%;
+    min-height: 100vh; /* Changed to 100vh */
 }
 
-* {
-    margin: 0px;
-}
-
-p {
-    margin: 10px 0px;
-    font-size: 18px;
-    padding: 3px;
-}
-
-h1 {
-    font-size: 34px;
-    padding-bottom: 10px;
-    margin-bottom: 30px;
-    border-bottom: solid rgba(102, 102, 102, 0.524);
-}
-
-#main-content {
-    width: 100%;
-    padding: 40px;
-    margin-left: 240px;
-    background: #ffebf5;
-    background: radial-gradient(
-        circle,
-        rgb(255, 238, 247, 0.9) 0%,
-        rgba(255, 245, 250, 0.8) 100%
-    );
-    min-height: 100%;
-}
-.rainbow-wiggle {
-  display: inline-block; /* needed for transform to work nicely */
-  font-weight: 800;
-
-  /* rainbow gradient text */
-  background: linear-gradient(
-    90deg,
-    #ff3d3d,
-    #ffb23d,
-    #fff23d,
-    #3dff6a,
-    #3dd8ff,
-    #7a5cff,
-    #ff3dd8
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-
-text-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.18),
-    0 0 10px rgba(0, 0, 0, 0.06);
-}
-
-/* Motion accessibility: respect “reduce motion” */
-@media (prefers-reduced-motion: reduce) {
-  .rainbow-wiggle {
-    animation: none;
-  }
-}
-
-@keyframes wiggle {
-  0%   { transform: rotate(-2deg) translateY(0px) scale(1); }
-  25%  { transform: rotate(2deg)  translateY(-1px) scale(1.02); }
-  50%  { transform: rotate(-1deg) translateY(0px) scale(1); }
-  75%  { transform: rotate(1deg)  translateY(1px) scale(1.02); }
-  100% { transform: rotate(-2deg) translateY(0px) scale(1); }
-}
-#sidebar {
-    width: 200px;
-    flex-shrink: 0;
-    /* background: rgb(243, 243, 243); */
-    background: #8c2e37;
-    padding: 20px;
-    padding-bottom: 0px;
-    position: fixed;
-    height: 100vh;
-    z-index: 8;
-}
-
-#sidebar a {
-    margin-top: 10px;
-    margin-left: 5px;
-    text-decoration: none;
-    display: block; /* idt this is best practice but it lets me manipulate links with margins */
-    color: rgb(179, 179, 179);
-}
-
-#sidebar a:not(.main-level):hover {
-    /* color: #8e2d2f8a; */
-    color: rgb(226, 226, 226);
-}
-
-#athena-link {
-    padding-left: 26px; /* centering divs is my enemy, this was the best temporary solution i could come up with before i went insane */
-    font-size: 40px;
-    font-weight: bold;
-    color: #fff !important;
-}
-
-#athena-link:hover {
-    color: #662122 !important;
-}
-
-.button {
-    display: block;
-    margin: 10px 0px;
-    background-color: rgba(136, 175, 234, 0.775);
-    padding: 10px;
-    border-radius: 10px;
-    text-decoration: none;
-    color: black;
-    border: solid rgba(121, 121, 121, 0.307);
-    text-align: center;
-}
-
-.button:hover {
-    border: solid rgb(121, 121, 121);
-    box-shadow: rgb(121, 121, 121);
-}
-
-.next-buttons {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 30px;
-}
-
-.next-text {
-    color: black;
-    font-size: 18px;
-    margin-bottom: 4px;
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-}
-
-.next-link {
-    font-size: 18px;
-    text-decoration: underline;
-    color: rgb(88, 15, 15) !important;
-}
-
-.next-link:hover {
-    color: rgb(57, 5, 5) !important;
-}
-
-.nav-button {
-    padding: 12px;
-    border: solid 1px #aa3a4380;
-    border-radius: 10px;
-    background: #aa3a4365;
-    text-decoration: none;
-    transition: all;
-    transition-duration: 100ms;
-}
-
-.nav-button:hover {
-    border: solid 1px #aa3a4380;
-    background: #aa3a4380;
-}
-
-#sidebar .main-level a {
-    margin-left: -5px;
-    padding: 5px;
-    color: rgb(238, 238, 238);
-    font-weight: 400;
-    font-size: 18px;
-    border-radius: 6px;
-}
-
-#sidebar .main-level a:hover {
-    color: rgb(227, 227, 227);
-    background-color: #692329cb;
-    transition: all 100ms;
-}
-
-#sidebar .current.main-level a {
-    font-weight: 600;
-    color: #fff !important;
-    background-color: #692329;
-    transition: all 100ms;
-}
-
-.current a:not(.main-level) {
-    color: #fff !important;
-}
-
-.external {
-    color: rgb(210, 101, 101) !important;
-    text-decoration: underline;
-}
-
-.external:hover {
-    color: #8e2d2f !important;
-}
-
-.api-list {
-    padding: 3px;
-}
-
-.code {
-    background-color: rgb(240, 240, 240);
-    padding: 10px;
-    margin: 2px;
-    border-radius: 5px;
-    font-family: "Fira Code", monospace;
-    font-optical-sizing: auto;
-    font-weight: 30px;
-    font-style: normal;
-    font-size: 12px;
-    white-space: pre;
-}
-
-.important {
-    color: cornflowerblue;
-}
-
+/* Dynamic JS Background */
 #spotlight {
     position: fixed;
     top: 0;
@@ -301,10 +62,304 @@ text-shadow:
     background-image: url("images/glyph_rep.svg");
     background-size: 40px 40px;
     background-repeat: repeat;
-    opacity: 0.2;
+    opacity: 0.15;
     z-index: -2;
     pointer-events: none;
+    /* This makes sure the pattern doesn't scroll away */
+    background-attachment: fixed; 
 }
+
+/* Girly Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background: #fff0f5; 
+}
+::-webkit-scrollbar-thumb {
+    background: var(--accent-pink); 
+    border-radius: 10px;
+    border: 3px solid #fff0f5;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #ff91a4; 
+}
+
+
+* {
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+/* Typography & Content Spacing */
+p, li {
+    margin: 12px 0px;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+h1, h2, h3 {
+    font-family: "Playfair Display", serif;
+    color: var(--heading-color);
+}
+
+h1 {
+    font-size: 42px;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    border-bottom: 2px dashed rgba(255, 182, 193, 0.6);
+}
+
+h2 {
+    font-size: 28px;
+    margin-top: 45px;
+    margin-bottom: 15px;
+    color: #d16b88;
+}
+
+h3 {
+    font-size: 22px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+/* Layout */
+#main-content {
+    width: 100%;
+    padding: 60px 40px;
+    margin-left: 260px; /* Leaves room for wider sidebar */
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the content */
+}
+
+/* Constrain width of everything inside main content so it's super readable */
+#main-content > * {
+    max-width: 800px;
+    width: 100%;
+}
+
+/* Glassmorphism Sidebar */
+#sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: rgba(255, 235, 240, 0.65); /* Frosted Pink */
+    backdrop-filter: blur(12px); /* Makes the background blurry! */
+    -webkit-backdrop-filter: blur(12px);
+    border-right: 1px solid rgba(255, 255, 255, 0.6);
+    padding: 30px 20px;
+    position: fixed;
+    height: 100vh;
+    z-index: 8;
+    overflow-y: auto;
+}
+
+#nav {
+    list-style: none;
+    padding: 0;
+}
+
+#sidebar a {
+    margin-top: 8px;
+    padding: 6px 12px;
+    text-decoration: none;
+    display: block;
+    color: #8b5a6c;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+#sidebar a:not(.main-level):hover {
+    color: #ff6b9e;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translateX(6px);
+}
+
+#sidebar .main-level a {
+    margin-top: 25px !important;
+    font-family: "Playfair Display", serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--accent-dark);
+}
+
+#sidebar .current.main-level a {
+    font-weight: 700;
+    color: #fff !important;
+    background: linear-gradient(135deg, #ffb6c1 0%, #ff9a9e 100%);
+    box-shadow: 0 4px 12px rgba(255, 182, 193, 0.4);
+}
+
+.current a:not(.main-level) {
+    color: #bd4b6c !important;
+    font-weight: bold;
+}
+
+#athena-link {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+#athena-link:hover {
+    transform: scale(1.05);
+}
+
+/* Cute Links */
+.external {
+    color: #ff6b9e !important;
+    text-decoration: underline;
+    text-decoration-color: #ffb6c1;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+    transition: all 0.2s ease;
+}
+
+.external:hover {
+    color: var(--accent-dark) !important;
+    background: rgba(255, 182, 193, 0.2);
+    border-radius: 4px;
+}
+
+.code, pre {
+    background-color: var(--code-bg);
+    color: #ffdce5; /* Soft pale pink text */
+    padding: 20px 25px;
+    margin: 20px 0px;
+    border-radius: 16px;
+    font-family: "Fira Code", monospace;
+    font-size: 14px;
+    white-space: pre;
+    overflow-x: auto;
+    box-shadow: 0 10px 20px rgba(53, 34, 45, 0.1);
+    border: 2px solid rgba(255, 182, 193, 0.2);
+}
+
+code {
+    background: rgba(255, 182, 193, 0.3);
+    color: #a05268;
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-family: "Fira Code", monospace;
+    font-size: 0.9em;
+}
+
+pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+}
+
+.note {
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid var(--accent-pink);
+    border-radius: 16px;
+    padding: 20px 25px;
+    margin: 25px 0;
+    box-shadow: 0 8px 20px rgba(255, 182, 193, 0.25);
+}
+
+.note h3 {
+    margin-top: 0;
+    font-style: italic;
+}
+
+/* Embeds */
+.embed {
+    margin: 20px 0;
+    width: 100%;
+}
+
+.embed iframe {
+    background: white;
+    box-shadow: 0 12px 30px rgba(255, 182, 193, 0.2);
+    border-radius: 16px !important;
+    border: 2px solid rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Next Buttons */
+.next-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 50px;
+}
+
+.nav-button {
+    padding: 16px 28px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #fff 0%, #fff0f5 100%);
+    border: 2px solid var(--accent-pink);
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(255, 182, 193, 0.2);
+    transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(255, 182, 193, 0.4);
+    background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 100%);
+}
+
+.next-text {
+    color: var(--accent-dark);
+    font-size: 16px;
+    margin-bottom: 4px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.next-link {
+    font-size: 20px;
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    color: var(--heading-color) !important;
+}
+
+.rainbow-wiggle {
+    display: inline-block;
+    font-weight: 800;
+    background: linear-gradient(
+        90deg,
+        #d91e84, /* vivid pink */
+        #8a2be2, /* deep purple */
+        #ff6b9e, /* soft bright pink */
+        #bd4b6c, /* dark rose */
+        #d91e84  /* back to vivid pink for a seamless loop */
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: pastel-flow 3s linear infinite, wiggle 2s ease-in-out infinite;
+    text-shadow: 0 2px 10px rgba(217, 30, 132, 0.2); 
+}
+
+@keyframes pastel-flow {
+    to { background-position: 200% center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rainbow-wiggle {
+        animation: none;
+    }
+}
+
+@keyframes wiggle {
+    0%   { transform: rotate(-2deg) translateY(0px) scale(1); }
+    25%  { transform: rotate(2deg)  translateY(-1px) scale(1.02); }
+    50%  { transform: rotate(-1deg) translateY(0px) scale(1); }
+    75%  { transform: rotate(1deg)  translateY(1px) scale(1.02); }
+    100% { transform: rotate(-2deg) translateY(0px) scale(1); }
+}
+
 
 #spotlight-overlay {
     position: fixed;
