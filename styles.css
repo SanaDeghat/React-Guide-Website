@@ -97,7 +97,44 @@ h1 {
     );
     min-height: 100%;
 }
+.rainbow-wiggle {
+  display: inline-block; /* needed for transform to work nicely */
+  font-weight: 800;
 
+  /* rainbow gradient text */
+  background: linear-gradient(
+    90deg,
+    #b00020, 
+    #c04a00,
+    #8a6a00, 
+    #0b6b2a, 
+    #005f8a, 
+    #2a2a9e, 
+    #8a005f 
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.18),
+    0 0 10px rgba(0, 0, 0, 0.06);
+}
+
+/* Motion accessibility: respect “reduce motion” */
+@media (prefers-reduced-motion: reduce) {
+  .rainbow-wiggle {
+    animation: none;
+  }
+}
+
+@keyframes wiggle {
+  0%   { transform: rotate(-2deg) translateY(0px) scale(1); }
+  25%  { transform: rotate(2deg)  translateY(-1px) scale(1.02); }
+  50%  { transform: rotate(-1deg) translateY(0px) scale(1); }
+  75%  { transform: rotate(1deg)  translateY(1px) scale(1.02); }
+  100% { transform: rotate(-2deg) translateY(0px) scale(1); }
+}
 #sidebar {
     width: 200px;
     flex-shrink: 0;

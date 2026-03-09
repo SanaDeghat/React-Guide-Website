@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>React Guide</title>
+    <link href="styles.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="flexbox">
+      <!-- rly want to use svelte for templating bc if not this will be a mess (this is a mess lol) -->
+      <div id="sidebar">
+        <a href="https://sleepover.hackclub.com" style="margin-left:-22px;" id="athena-link" target="_blank" rel="noopener noreferrer">
+          <img src="images/sleepover.webp" width="200px"/>
+        </a>
+        <ul id="nav">
+          <li class="main-level"><a href="index.html">Home</a></li>
+          <li><a href="index.html">What is React?</a></li>
+          <li><a href="info.html">Why React?</a></li>
+
+          <li class="main-level current"><a href="tutorial.html">Tutorial: Tic-Tac-Toe </a></li>
+          <li><a href="getting-started.html">Setup for the tutorial</a></li>
+          <li class="current"><a href="tutorial-overview.html">Overview</a></li>
+          <li><a href="complete-game.html">Completing the game</a></li>
+          <li><a href="time-travel.html">Adding time travel</a></li>
+
+          <li class="main-level"><a href="api-key.html">How to:</a></li>
+          <li><a href="create-and-nest.html">Create and nest components</a></li>
+          <li><a href="add-markup.html">Add markup and styles</a></li>
+          <li><a href="display-data.html">Display data</a></li>
+          <li><a href="conditions-and-lists.html">Render conditions and lists</a></li>
+          <li><a href="events-and-state.html">Respond to events and update the screen</a></li>
+          <li><a href="sharing-data.html">Share data between components</a></li>
+
+          <li class="main-level"><a href="other-apis.html">More Resources</a></li>
+        </ul>
+      </div>
+
+      <div id="main-content">
+        <div id="spotlight">
+          <div id="spotlight-overlay"></div>
+        </div>
+
+        <h1>Overview</h1>
+
+        <p>
+          Now that you’re set up locally, it’s time to take a peek at React.
+          Don’t worry, React doesn’t bite. (The error messages sometimes do.)
+        </p>
+
+        <h2>Three things you want to keep open</h2>
+        <ol>
+          <li>
+            <b>VS Code</b> — where you edit your files (your glorious code cavern).
+          </li>
+          <li>
+            <b>Your terminal</b> — where you run the dev server (usually <code>npm run dev</code> for Vite).
+          </li>
+          <li>
+            <b>Your browser</b> — where you see your app at <code>http://localhost:5173</code> (or whatever it prints).
+          </li>
+        </ol>
+
+        <p>
+          When you save a file in VS Code, the browser usually updates automatically. To make it even easier you can install <b>Live Preview</b> from Microsoft which is what I use</p>
+
+        <h2>The starter code</h2>
+        <p>
+          In your project, open <code>src/App.jsx</code> (or <code>src/App.js</code> depending on your setup).
+          It should start with something small and suspiciously calm, like:
+        </p>
+
+        <pre><code>export default function Square() {
+  return &lt;button className="square"&gt;X&lt;/button&gt;;
+}</code></pre>
+
+        <p>
+          If your browser shows a single square with an X, congrats: you have successfully summoned React.
+        </p>
+
+        <h2>What even is a component?</h2>
+        <p>
+          This is a component:
+        </p>
+
+        <pre><code>export default function Square() {
+  return &lt;button className="square"&gt;X&lt;/button&gt;;
+}</code></pre>
+
+        <p>
+          A <b>component</b> is just a reusable chunk of UI.
+          Think “custom HTML tag,” except it can have logic and state and ambitions.
+        </p>
+
+        <ul>
+          <li><code>function Square()</code> defines the component.</li>
+          <li><code>export default</code> means other files can import it, and it’s the “main export” of this file.</li>
+          <li>The <code>return</code> is what shows up on the page.</li>
+          <li><code>&lt;button&gt;</code> here is written in <b>JSX</b> (HTML-ish syntax inside JavaScript).</li>
+          <li><code>className="square"</code> connects it to CSS (React uses <code>className</code>, not <code>class</code>).</li>
+        </ul>
+<br>
+        <h2>styles.css (aka: “make it not ugly”)</h2>
+        <p>
+          Your styles live in something like <code>src/styles.css</code>.
+          The <code>.square</code> class is what makes your button actually look like a tic-tac-toe square.
+        </p>
+
+        <h2>main.jsx / index.js (the “plugs React into the page” file)</h2>
+        <p>
+          You probably also have <code>src/main.jsx</code> (Vite) or <code>src/index.js</code> (other setups).
+          You won’t edit it much, but it’s the bridge between your components and the browser.
+        </p>
+
+        <h2>Building the board</h2>
+        <p>
+          If you try to return two buttons side-by-side like this:
+        </p>
+
+        <pre><code>export default function Square() {
+  return &lt;button className="square"&gt;X&lt;/button&gt;&lt;button className="square"&gt;X&lt;/button&gt;;
+}</code></pre>
+
+        <p>
+          React will complain because a component must return <b>one</b> parent element.
+          The fix is a Fragment: <code>&lt;&gt; ... &lt;/&gt;</code>
+        </p>
+
+        <pre><code>export default function Square() {
+  return (
+    &lt;&gt;
+      &lt;button className="square"&gt;X&lt;/button&gt;
+      &lt;button className="square"&gt;X&lt;/button&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+
+        <p>
+          Next you’ll make 9 squares, realize they’re in one long line (pain), and then group them into rows:
+        </p>
+      
+        <pre><code>export default function Board() {
+  return (
+    &lt;&gt;
+      &lt;div className="board-row"&gt;
+        &lt;button className="square"&gt;1&lt;/button&gt;
+        &lt;button className="square"&gt;2&lt;/button&gt;
+        &lt;button className="square"&gt;3&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div className="board-row"&gt;
+        &lt;button className="square"&gt;4&lt;/button&gt;
+        &lt;button className="square"&gt;5&lt;/button&gt;
+        &lt;button className="square"&gt;6&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div className="board-row"&gt;
+        &lt;button className="square"&gt;7&lt;/button&gt;
+        &lt;button className="square"&gt;8&lt;/button&gt;
+        &lt;button className="square"&gt;9&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+
+}</code></pre>
+<div class="note">
+        <h3>Note: </h3>
+        <p>Psssst… That’s a lot to type! It’s okay to copy and paste code from this page. However, if you’re up for a little challenge, I recommend only copying code that you’ve manually typed at least once yourself.</p>
+      </div>
+        <h2>Passing data with props</h2>
+        <p>
+          Instead of writing 9 different buttons by hand forever, we make a reusable <code>Square</code> component,
+          and pass it different values using <b>props</b>.
+        </p>
+
+        <pre><code>function Square({ value }) {
+  return &lt;button className="square"&gt;{value}&lt;/button&gt;;
+}
+
+export default function Board() {
+  return (
+    &lt;&gt;
+      &lt;div className="board-row"&gt;
+        &lt;Square value="1" /&gt;
+        &lt;Square value="2" /&gt;
+        &lt;Square value="3" /&gt;
+      &lt;/div&gt;
+      &lt;div className="board-row"&gt;
+        &lt;Square value="4" /&gt;
+        &lt;Square value="5" /&gt;
+        &lt;Square value="6" /&gt;
+      &lt;/div&gt;
+      &lt;div className="board-row"&gt;
+        &lt;Square value="7" /&gt;
+        &lt;Square value="8" /&gt;
+        &lt;Square value="9" /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+
+        <p>
+          The curly braces <code>{value}</code> are the “escape hatch” from JSX into JavaScript.
+          Without them, React thinks you literally want the word <code>value</code>.
+        </p>
+
+        <h2>Making it interactive <a class="clickble" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">(it clicks!)</a></h2>
+        <p>
+          Next you’ll add an <code>onClick</code> handler:
+        </p>
+
+        <pre><code>function Square({ value }) {
+  function handleClick() {
+    console.log('clicked!');
+  }
+
+  return (
+    &lt;button className="square" onClick={handleClick}&gt;
+      {value}
+    &lt;/button&gt;
+  );
+}</code></pre>
+
+        <p>
+          If you’re running locally, open your browser DevTools Console to see that log.
+        </p>
+
+        <h2>State (a square learns to remember)</h2>
+        <p>
+          Logging clicks is cute, but we want the square to remember it was clicked.
+          That’s <b>state</b>, and React gives us <code>useState</code>.
+        </p>
+
+        <pre><code>import { useState } from 'react';
+
+function Square() {
+  const [value, setValue] = useState(null);
+
+  function handleClick() {
+    setValue('X');
+  }
+
+  return (
+    &lt;button className="square" onClick={handleClick}&gt;
+      {value}
+    &lt;/button&gt;
+  );
+}</code></pre>
+
+        <p>
+          Every time you call <code>setValue</code>, React re-renders the component.
+          That’s the whole trick. That’s the secret sauce. That’s the entire spellbook.
+        </p>
+
+        <h2>React DevTools (optional but elite)</h2>
+        <p>
+          If you want superpowers, install the <b>React Developer Tools</b> browser extension.
+          Then you can inspect your components and their props/state directly.
+        </p>
+
+        <div class="next-buttons">
+          <a href="complete-game.html" class="nav-button">
+            <div class="next-text">
+              <div>Next:</div>
+              <img src="images/right-arrow.svg" height="20px"/>
+            </div>
+            <div class="next-link">let’s actually build the game</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="spotlight.js"></script>
+  </body>
+</html>

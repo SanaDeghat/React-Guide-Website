@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>React Guide</title>
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="flexbox">
+      <!-- rly want to use svelte for templating bc if not this will be a mess (this is a mess lol) -->
+      <div id="sidebar">
+        <a
+          href="https://sleepover.hackclub.com"
+          style="margin-left:-22px;"
+          id="athena-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="images/sleepover.webp" width="200px" />
+        </a>
+
+        <ul id="nav">
+          <li class="main-level"><a href="index.html">Home</a></li>
+          <li><a href="index.html">What is React?</a></li>
+          <li><a href="info.html">Why React?</a></li>
+
+          <li class="main-level current"><a href="tutorial.html">Tutorial: Tic-Tac-Toe </a></li>
+          <li><a href="getting-started.html">Setup for the tutorial</a></li>
+          <li><a href="tutorial-overview.html">Overview</a></li>
+          <li><a href="complete-game.html">Completing the game</a></li>
+          <li class="current"><a href="time-travel.html">Adding time travel</a></li>
+
+          <li class="main-level"><a href="api-key.html">How to:</a></li>
+          <li><a href="create-and-nest.html">Create and nest components</a></li>
+          <li><a href="add-markup.html">Add markup and styles</a></li>
+          <li><a href="display-data.html">Display data</a></li>
+          <li><a href="conditions-and-lists.html">Render conditions and lists</a></li>
+          <li><a href="events-and-state.html">Respond to events and update the screen</a></li>
+          <li><a href="sharing-data.html">Share data between components</a></li>
+
+          <li class="main-level"><a href="other-apis.html">More Resources</a></li>
+        </ul>
+      </div>
+
+      <div id="main-content">
+        <div id="spotlight">
+          <div id="spotlight-overlay"></div>
+        </div>
+
+        <h1>Adding time travel</h1>
+
+        <p>
+          As a final boss fight, we’re going to give your game the power to
+          <b class="rainbow-wiggle">time travel</b>. 
+        </p>
+
+        <p>
+          The big secret: time travel is only “hard” if you mutate your data.
+          Since we’ve been copying arrays with <code>slice()</code>, we can keep old board states around like a scrapbook.
+        </p>
+
+        <h2>Step 1: Store a history of moves</h2>
+        <p>
+          Instead of one <code>squares</code> array, we’ll store an array of <i>past</i> squares arrays called
+          <code>history</code>.
+        </p>
+
+        <pre><code>[
+  // Before first move
+  [null, null, null, null, null, null, null, null, null],
+  // After first move
+  [null, null, null, null, 'X', null, null, null, null],
+  // After second move
+  [null, null, null, null, 'X', null, null, null, 'O'],
+  // ...
+]</code></pre>
+
+        <h2>Step 2: Lift state up (again) into a new Game component</h2>
+        <p>
+          The <code>Board</code> shouldn’t own history, the <code>Game</code> should. So we create a top-level component:
+          <code>Game</code>.
+        </p>
+
+        <pre><code>function Board() {
+  // ...
+}
+
+export default function Game() {
+  return (
+    &lt;div className="game"&gt;
+      &lt;div className="game-board"&gt;
+        &lt;Board /&gt;
+      &lt;/div&gt;
+      &lt;div className="game-info"&gt;
+        &lt;ol&gt;{/* TODO */}&lt;/ol&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+        <p>
+          Notice we removed <code>export default</code> from <code>Board</code> and put it on <code>Game</code>.
+          That makes <code>Game</code> the “main” component your app renders.
+        </p>
+
+        <h2>Step 3: Add history + current move state</h2>
+        <p>
+          We’ll store history in state, and also store <code>currentMove</code> (which move we’re currently viewing).
+          From <code>currentMove</code> we can calculate whose turn it is.
+        </p>
+
+        <pre><code>export default function Game() {
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+
+  const xIsNext = currentMove % 2 === 0;
+  const currentSquares = history[currentMove];
+
+  // ...
+}</code></pre>
+
+        <h2>Step 4: Make Board “controlled” by props</h2>
+        <p>
+          Board doesn’t manage its own state anymore. It receives <code>xIsNext</code>, <code>squares</code>,
+          and an <code>onPlay</code> function to call when someone makes a move.
+        </p>
+
+        <pre><code>function Board({ xIsNext, squares, onPlay }) {
+  function handleClick(i) {
+    if (calculateWinner(squares) || squares[i]) return;
+
+    const nextSquares = squares.slice();
+    nextSquares[i] = xIsNext ? 'X' : 'O';
+    onPlay(nextSquares);
+  }
+
+  // ...
+}</code></pre>
+
+        <h2>Step 5: Update history when a move happens</h2>
+        <p>
+          When the board calls <code>onPlay(nextSquares)</code>, the Game component should:
+        </p>
+        <ul>
+          <li>keep history only up to the current move (so “branching timelines” don’t pile up)</li>
+          <li>append the new board state</li>
+          <li>move the pointer (<code>currentMove</code>) to the latest move</li>
+        </ul>
+
+        <pre><code>function handlePlay(nextSquares) {
+  const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+  setHistory(nextHistory);
+  setCurrentMove(nextHistory.length - 1);
+}</code></pre>
+
+        <h2>Step 6: Render the move list + implement jumpTo</h2>
+        <p>
+          We turn the history array into buttons using <code>map()</code>. Each list item needs a <code>key</code>
+          so React can keep track of it without getting grumpy.
+        </p>
+
+        <pre><code>function jumpTo(nextMove) {
+  setCurrentMove(nextMove);
+}
+
+const moves = history.map((squares, move) =&gt; {
+  const description = move &gt; 0 ? 'Go to move #' + move : 'Go to game start';
+  return (
+    &lt;li key={move}&gt;
+      &lt;button onClick={() =&gt; jumpTo(move)}&gt;{description}&lt;/button&gt;
+    &lt;/li&gt;
+  );
+});</code></pre>
+
+        <p>
+          When you click a move, the board instantly updates because we’re rendering:
+          <code>const currentSquares = history[currentMove];</code>
+          (not always the last move).
+        </p>
+
+        <h2>Final code</h2>
+        <p>
+          Here’s the full React file for the finished time-travel game:
+        </p>
+
+        <pre><code>import { useState } from 'react';
+
+function Square({ value, onSquareClick }) {
+  return (
+    &lt;button className="square" onClick={onSquareClick}&gt;
+      {value}
+    &lt;/button&gt;
+  );
+}
+
+function Board({ xIsNext, squares, onPlay }) {
+  function handleClick(i) {
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = 'X';
+    } else {
+      nextSquares[i] = 'O';
+    }
+    onPlay(nextSquares);
+  }
+
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = 'Winner: ' + winner;
+  } else {
+    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+  }
+
+  return (
+    &lt;&gt;
+      &lt;div className="status"&gt;{status}&lt;/div&gt;
+      &lt;div className="board-row"&gt;
+        &lt;Square value={squares[0]} onSquareClick={() =&gt; handleClick(0)} /&gt;
+        &lt;Square value={squares[1]} onSquareClick={() =&gt; handleClick(1)} /&gt;
+        &lt;Square value={squares[2]} onSquareClick={() =&gt; handleClick(2)} /&gt;
+      &lt;/div&gt;
+      &lt;div className="board-row"&gt;
+        &lt;Square value={squares[3]} onSquareClick={() =&gt; handleClick(3)} /&gt;
+        &lt;Square value={squares[4]} onSquareClick={() =&gt; handleClick(4)} /&gt;
+        &lt;Square value={squares[5]} onSquareClick={() =&gt; handleClick(5)} /&gt;
+      &lt;/div&gt;
+      &lt;div className="board-row"&gt;
+        &lt;Square value={squares[6]} onSquareClick={() =&gt; handleClick(6)} /&gt;
+        &lt;Square value={squares[7]} onSquareClick={() =&gt; handleClick(7)} /&gt;
+        &lt;Square value={squares[8]} onSquareClick={() =&gt; handleClick(8)} /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}
+
+export default function Game() {
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+  const xIsNext = currentMove % 2 === 0;
+  const currentSquares = history[currentMove];
+
+  function handlePlay(nextSquares) {
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
+  }
+
+  function jumpTo(nextMove) {
+    setCurrentMove(nextMove);
+  }
+
+  const moves = history.map((squares, move) =&gt; {
+    const description = move &gt; 0 ? 'Go to move #' + move : 'Go to game start';
+    return (
+      &lt;li key={move}&gt;
+        &lt;button onClick={() =&gt; jumpTo(move)}&gt;{description}&lt;/button&gt;
+      &lt;/li&gt;
+    );
+  });
+
+  return (
+    &lt;div className="game"&gt;
+      &lt;div className="game-board"&gt;
+        &lt;Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} /&gt;
+      &lt;/div&gt;
+      &lt;div className="game-info"&gt;
+        &lt;ol&gt;{moves}&lt;/ol&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i &lt; lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] &amp;&amp; squares[a] === squares[b] &amp;&amp; squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}</code></pre>
+
+        <p>
+          You did it. Your tic-tac-toe game now:
+        </p>
+        <ul>
+          <li>lets you play</li>
+          <li>declares a winner</li>
+          <li>stores history</li>
+          <li>lets you jump back in time and rewrite history (responsibly)</li>
+        </ul>
+        <h2>What now?</h2>
+        <p>
+          Well my beatifull friend who read this far, im very gratefull for your time but tragically you cant quiet submit this to sleepover(or any other YSWS) yet!) First you have to add a bit of your touch to it. Here are some ideas for modification tho! 
+          1) For the current move only, show “You are at move #…” instead of a button.
+2)Rewrite Board to use two loops to make the squares instead of hardcoding them.
+3)Add a toggle button that lets you sort the moves in either ascending or descending order.
+4)When someone wins, highlight the three squares that caused the win (and when no one wins, display a message about the result being a draw).
+5)Display the location for each move in the format (row, col) in the move history list.
+        </p>
+        <p>From here you can look at more resources on the side bar or go explore React yourself. Always remamber when in doubt ask in slack.(or <span class="rainbow-wiggle">Soogle</span>)</p>
+        <div class="next-buttons">
+          <a href="tutorial.html" class="nav-button">
+            <div class="next-text">
+              <div>Next:</div>
+              <img src="images/right-arrow.svg" height="20px" />
+            </div>
+            <div class="next-link">back to the tutorial start (victory lap)</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="spotlight.js"></script>
+  </body>
+</html>

@@ -2,63 +2,76 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>APIs Guide</title>
+    <title>React Guide</title>
     <link href="styles.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Oxanium:wght@200..800&display=swap" rel="stylesheet">
   </head>
 
   <body>
     <div class="flexbox">
-    <!--rly want to use svelte for templating bc if not this will be a mess-->
+    <!--rly want to use svelte for templating bc if not this will be a mess (this is a mess lol)-->
     <div id="sidebar">
-        <a href="https://sleepover.hackclub.com" id="athena-link" target="_blank" rel="noopener noreferrer">Sleepover!</a>
+        <a href="https://sleepover.hackclub.com" style="margin-left:-22px;" id="athena-link" target="_blank" rel="noopener noreferrer"><img src="images/sleepover.webp" width="200px"/></a>
         <ul id="nav">
             <li class="main-level"><a href="./">Home</a></li>
-            <li><a href="./">What is react API?</a></li>
-            <li><a href="info.html">More about APIs</a></li>
+            <li ><a href="./">What is React?</a></li>
+            <li><a href="info.html">Why is React?</a></li>
             
-            <li class="main-level current"><a href="getting-started.html">Tutorial: CatAPI</a></li>
-            <li class="current"><a href="getting-started.html">Getting Started</a></li>
-            <li><a href="using-an-api.html">Using the API</a></li>
+            <li class="main-level current"><a href="tutorial.html">Tutorial: Tic-Tac-Toe </a></li>
+            <li class="current"><a href="getting-started.html">Setup for the tutorial</a></li>
+            <li><a href="tutorial-overview.html">Overview</a></li>
+            <li><a href="complete-game.html">Completing the game</a></li>
+            <li><a href="time-travel.html">Adding time travel</a></li>
 
-            <li class="main-level"><a href="api-key.html">API Keys</a></li>
-            <li><a href="api-key.html">Getting an API Key</a></li>
-            <li><a href="using-an-api-key.html">Using an API Key</a></li>
-            <li><a href="deployment.html">Deployment</a></li>
+            <li class="main-level"><a href="api-key.html">How to:</a></li>
+            <li><a href="create-and-nest.html">Create and nest components</a></li>
+            <li><a href="add-markup.html">Add markup and styles</a></li>
+            <li><a href="display-data.html">Display data</a></li>
+            <li><a href="conditions-and-lists.html">Render conditions and lists</a></li>
+            <li><a href="events-and-state.html">Respond to events and update the screen</a></li>
+            <li><a href="sharing-data.html">Share data between components</a></li>
 
-            <li class="main-level"><a href="other-apis.html">Other APIs</a></li>
+            <li class="main-level"><a href="other-apis.html">More Resources</a></li>
         </ul>
     </div>
     <div id="main-content">
       <div id="spotlight">
         <div id="spotlight-overlay"></div>
       </div>
-        <h1>Getting started with CatAPI</h1>
-        <p>In order to get started, we're going to need somewhere to call the API from. 
-        </p>
+        <h1>Setup for the tutorial</h1>
+        <p> In order to be able to work with React first we need to complete a few prerequisits. 
+        <h3>Step 1: Install Node.js</h3>
         <p>
-            If you already have an application you've created in mind, then that's great! 
-            If not, you can follow the guide <a href="https://workshops.hackclub.com/personal_website/" target="_blank" rel="noopener noreferrer" class="external">here</a> to make a simple website.  
-        </p>
-        <!--this feels kind of plopped in here, is there a simpler tutorial I might be able to guide people to which is for beginners and just one framework, like react or something?-->
-        <p>Please keep in mind that if you want to follow the 2nd part of this guide which covers using API keys, you'll need to be using a Javascript framework. This could be Astro, React, Node.js, or anything else. This guide will cover Astro, so if you want to follow along for using an API key you can start with a simple astro template from <a href="https://docs.astro.build/en/tutorial/0-introduction/" target="_blank" rel="noopener noreferrer" class="external">this guide</a>. </p>
-        <p>
-            Since we'll be using CatAPI to get an image, make sure whichever project you are planning on using this for has an &#60;img&#62; tag in the html too (the guide covers this in case your project doesn't have one yet)! 
+          Install Node.js (LTS version is best). This gives you <code>npm</code>, your app wont work without this.
         </p>
 
-        <p>Here's a video guide on this section!</p>
-        <video controls width="500">
-          <source src="https://github.com/108charlotte/APIs-Guide-Website/raw/main/images/part-1-apis-guide.mp4" type="video/mp4">
-          Your browser does not support the video tag or MP4 format.
-        </video>
-        
+        <h3>Step 2: Start fresh with Vite (recommended)</h3>
+        <p>
+          Vite is a modern tool that sets up React quickly and doesn’t make your laptop sound like a jet engine.
+        </p>
+
+        <pre><code>npm create vite@latest tic-tac-toe -- --template react
+                cd tic-tac-toe
+                npm install
+                npm run dev</code></pre>
+
+        <p>
+          Then open the folder in VS Code and visit the local link it prints (usually
+          <code>http://localhost:5173</code>).
+        </p>
+
+      
+
+        <p>
+          If anything explodes (it happens), don’t get stuck here forever.
+          Use an online editor, ask for help in the help channel (if you havnt yet join slack btw!!) or  come back to local setup later when you’re feeling powerful.
+        </p>
+
         <div class="next-buttons">
-          <a href="using-an-api.html" class="nav-button">
+          <a href="info.html" class="nav-button">
             <div class="next-text">
               <div>Next:</div>
               <img src="images/right-arrow.svg" height="20px"/></div>
-            <div class="next-link">learn how to call an API</div>
+            <div class="next-link">but why use React?</div>
           </a>
         </div>
     </div>

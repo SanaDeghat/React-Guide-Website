@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>React Guide</title>
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="flexbox">
+      <!-- rly want to use svelte for templating bc if not this will be a mess (this is a mess lol) -->
+      <div id="sidebar">
+        <a
+          href="https://sleepover.hackclub.com"
+          style="margin-left:-22px;"
+          id="athena-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="images/sleepover.webp" width="200px" />
+        </a>
+        <ul id="nav">
+          <li class="main-level"><a href="index.html">Home</a></li>
+          <li><a href="index.html">What is React?</a></li>
+          <li><a href="info.html">Why React?</a></li>
+
+          <li class="main-level current"><a href="tutorial.html">Tutorial: Tic-Tac-Toe </a></li>
+          <li><a href="getting-started.html">Setup for the tutorial</a></li>
+          <li><a href="tutorial-overview.html">Overview</a></li>
+          <li class="current"><a href="complete-game.html">Completing the game</a></li>
+          <li><a href="time-travel.html">Adding time travel</a></li>
+
+          <li class="main-level"><a href="api-key.html">How to:</a></li>
+          <li><a href="create-and-nest.html">Create and nest components</a></li>
+          <li><a href="add-markup.html">Add markup and styles</a></li>
+          <li><a href="display-data.html">Display data</a></li>
+          <li><a href="conditions-and-lists.html">Render conditions and lists</a></li>
+          <li><a href="events-and-state.html">Respond to events and update the screen</a></li>
+          <li><a href="sharing-data.html">Share data between components</a></li>
+
+          <li class="main-level"><a href="other-apis.html">More Resources</a></li>
+        </ul>
+      </div>
+
+      <div id="main-content">
+        <div id="spotlight">
+          <div id="spotlight-overlay"></div>
+        </div>
+
+        <h1>Completing the game</h1>
+
+        <p>
+          You’ve built the basic ingredients: squares, clicks, and a board.
+          Now we’re going to turn it into an <span class="rainbow-wiggle">actual game</span>:
+          players take turns, nobody can cheat by overwriting squares, and the app can announce a winner.
+        </p>
+
+        <h2>Lifting state up </h2>
+        <p>
+          Right now, if every <code>Square</code> keeps its own state, the <code>Board</code> has no idea what’s going on.
+          It’s like trying to run a group project where everyone keeps their notes on a napkin and refuses to share.
+        </p>
+
+        <p>
+          In React, when multiple child components need to share the same data, we store that shared state in the
+          <b>closest common parent</b>. This is called <b>lifting state up</b>.
+        </p>
+
+        <h2>Step 1: Store the board in one array</h2>
+        <p>
+          In <code>Board</code>, create a <code>squares</code> state array with 9 slots (one per square).
+          Each slot is either <code>'X'</code>, <code>'O'</code>, or <code>null</code> (empty).
+        </p>
+
+        <pre><code>import { useState } from 'react';
+
+function Square({ value }) {
+  return &lt;button className="square"&gt;{value}&lt;/button&gt;;
+}
+
+export default function Board() {
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  return (
+    &lt;&gt;
+      &lt;div className="board-row"&gt;
+        &lt;Square value={squares[0]} /&gt;
+        &lt;Square value={squares[1]} /&gt;
+        &lt;Square value={squares[2]} /&gt;
+      &lt;/div&gt;
+      &lt;div className="board-row"&gt;
+        &lt;Square value={squares[3]} /&gt;
+        &lt;Square value={squares[4]} /&gt;
+        &lt;Square value={squares[5]} /&gt;
+      &lt;/div&gt;
+      &lt;div className="board-row"&gt;
+        &lt;Square value={squares[6]} /&gt;
+        &lt;Square value={squares[7]} /&gt;
+        &lt;Square value={squares[8]} /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+
+        <p>
+          At this point your board is empty again. That is what we want.
+          We just moved the “memory” into the parent.
+        </p>
+
+        <h2>Step 2: Let squares tell the board they were clicked</h2>
+        <p>
+          Squares can’t directly change <code>Board</code>’s state (state is private to the component that owns it).
+          So we pass a function down as a prop, and the square calls it when clicked.
+        </p>
+
+        <pre><code>function Square({ value, onSquareClick }) {
+  return (
+    &lt;button className="square" onClick={onSquareClick}&gt;
+      {value}
+    &lt;/button&gt;
+  );
+}</code></pre>
+
+        <p>
+          Now add a <code>handleClick(i)</code> function in <code>Board</code>, and pass it to each square.
+          Important: we pass a function, we don’t call it during render so we use an arrow function.
+        </p>
+
+        <pre><code>export default function Board() {
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  function handleClick(i) {
+    const nextSquares = squares.slice();
+    nextSquares[i] = 'X';
+    setSquares(nextSquares);
+  }
+
+  return (
+    &lt;&gt;
+      &lt;div className="board-row"&gt;
+        &lt;Square value={squares[0]} onSquareClick={() =&gt; handleClick(0)} /&gt;
+        &lt;Square value={squares[1]} onSquareClick={() =&gt; handleClick(1)} /&gt;
+        &lt;Square value={squares[2]} onSquareClick={() =&gt; handleClick(2)} /&gt;
+      &lt;/div&gt;
+      &lt;div className="board-row"&gt;
+        &lt;Square value={squares[3]} onSquareClick={() =&gt; handleClick(3)} /&gt;
+        &lt;Square value={squares[4]} onSquareClick={() =&gt; handleClick(4)} /&gt;
+        &lt;Square value={squares[5]} onSquareClick={() =&gt; handleClick(5)} /&gt;
+      &lt;/div&gt;
+      &lt;div className="board-row"&gt;
+        &lt;Square value={squares[6]} onSquareClick={() =&gt; handleClick(6)} /&gt;
+        &lt;Square value={squares[7]} onSquareClick={() =&gt; handleClick(7)} /&gt;
+        &lt;Square value={squares[8]} onSquareClick={() =&gt; handleClick(8)} /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+
+        <h2>Step 3: Take turns (X, then O, then X…)</h2>
+        <p>
+          Right now every click places an X, which is very pro X and not very fair to O.
+          Let’s track whose turn it is with a boolean called <code>xIsNext</code>.
+        </p>
+
+        <pre><code>export default function Board() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  function handleClick(i) {
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = 'X';
+    } else {
+      nextSquares[i] = 'O';
+    }
+    setSquares(nextSquares);
+    setXIsNext(!xIsNext);
+  }
+
+  // ...
+}</code></pre>
+
+        <h2>Step 4: No overwriting ]</h2>
+        <p>
+          Try clicking the same square twice. Oops it gets overwriting. We dont want that.
+          Fix it by returning early if the square is already filled.
+        </p>
+
+        <pre><code>function handleClick(i) {
+  if (squares[i]) {
+    return;
+  }
+  const nextSquares = squares.slice();
+  nextSquares[i] = xIsNext ? 'X' : 'O';
+  setSquares(nextSquares);
+  setXIsNext(!xIsNext);
+}</code></pre>
+
+        <h2>Step 5: Declare a winner (prefferibly dramatically)</h2>
+        <p>
+          Time for the judge. Add a helper function called <code>calculateWinner</code>.
+          
+        </p>
+
+        <pre><code>function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i &lt; lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] &amp;&amp; squares[a] === squares[b] &amp;&amp; squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}</code></pre>
+
+        <p>
+          Now prevent moves after someone has already won, and show a status message:
+        </p>
+
+        <pre><code>export default function Board() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  function handleClick(i) {
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    const nextSquares = squares.slice();
+    nextSquares[i] = xIsNext ? 'X' : 'O';
+    setSquares(nextSquares);
+    setXIsNext(!xIsNext);
+  }
+
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = 'Winner: ' + winner;
+  } else {
+    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+  }
+
+  return (
+    &lt;&gt;
+      &lt;div className="status"&gt;{status}&lt;/div&gt;
+      {/* ... board rows here ... */}
+    &lt;/&gt;
+  );
+}</code></pre>
+
+        <p>
+          Congrats. You now have a working tic-tac-toe game.
+          And you also learned like 80% of React’s most used functions:
+          <b>components + props + state + lifting state up</b>.
+          The remaining 20% is <span class="rainbow-wiggle">googling</span> error messages like a professional.
+        </p>
+
+        <div class="next-buttons">
+          <a href="time-travel.html" class="nav-button">
+            <div class="next-text">
+              <div>Next:</div>
+              <img src="images/right-arrow.svg" height="20px" />
+            </div>
+            <div class="next-link">add time travel (because why not)</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="spotlight.js"></script>
+  </body>
+</html>
