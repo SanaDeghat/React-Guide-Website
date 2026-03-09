@@ -8,33 +8,41 @@
 
   <body>
     <div class="flexbox">
-    <!--rly want to use svelte for templating bc if not this will be a mess-->
+    <!--rly want to use svelte for templating bc if not this will be a mess (this is a mess lol)-->
     <div id="sidebar">
         <a href="https://sleepover.hackclub.com" style="margin-left:-22px;" id="athena-link" target="_blank" rel="noopener noreferrer"><img src="images/sleepover.webp" width="200px"/></a>
         <ul id="nav">
             <li class="main-level current"><a href="./">Home</a></li>
-            <li class="current"><a href="./">What is an API?</a></li>
-            <li><a href="info.html">More about APIs</a></li>
+            <li class="current"><a href="./">What is React?</a></li>
+            <li><a href="info.html">Why is React?</a></li>
             
-            <li class="main-level"><a href="getting-started.html">Tutorial: CatAPI</a></li>
-            <li><a href="getting-started.html">Getting Started</a></li>
-            <li><a href="using-an-api.html">Using the API</a></li>
+            <li class="main-level"><a href="tutorial.html">Tutorial: Tic-Tac-Toe </a></li>
+            <li><a href="getting-started.html">Setup for the tutorial</a></li>
+            <li><a href="tutorial-overview.html">Overview</a></li>
+            <li><a href="complete-game.html">Completing the game</a></li>
+            <li><a href="time-travel.html">Adding time travel</a></li>
 
-            <li class="main-level"><a href="api-key.html">API Keys</a></li>
-            <li><a href="api-key.html">Getting an API Key</a></li>
-            <li><a href="using-an-api-key.html">Using an API Key</a></li>
-            <li><a href="deployment.html">Deployment</a></li>
+            <li class="main-level"><a href="api-key.html">How to:</a></li>
+            <li><a href="create-and-nest.html">Create and nest components</a></li>
+            <li><a href="add-markup.html">Add markup and styles</a></li>
+            <li><a href="display-data.html">Display data</a></li>
+            <li><a href="conditions-and-lists.html">Render conditions and lists</a></li>
+            <li><a href="events-and-state.html">Respond to events and update the screen</a></li>
+            <li><a href="sharing-data.html">Share data between components</a></li>
 
-            <li class="main-level"><a href="other-apis.html">Other APIs</a></li>
+            <li class="main-level"><a href="other-apis.html">More Resources</a></li>
         </ul>
     </div>
     <div id="main-content">
       <div id="spotlight">
         <div id="spotlight-overlay"></div>
       </div>
-        <h1>Call your first API!</h1>
-        <p>Have you ever wondered how to get cool data like <a href="https://docs.github.com/en/rest/quickstart?apiVersion=2022-11-28" target="_blank" rel="noopener noreferrer" class="external">GitHub data (including user stats)</a>, <a href="https://www.weatherapi.com/" target="_blank" rel="noopener noreferrer" class="external">current weather</a>, or <b>random images of cats</b> for your projects? <!--someone pls help with this opening-->
-            This guide will walk you through how to call <a href="https://thecatapi.com/" target="_blank" rel="noopener noreferrer" class="external">CatAPI</a>, an API which lets you display random cat images on your website! 
+        <h1>What is React?</h1>
+        <p>Have you ever wanted to make a cool website.. but HTML started looking like a mess of <code>&lt;div&gt;</code>s? or the mix of javascript, HTML and CSS files was just become too confusing? React is a java scrupt library for building user interfaces using small, reusable pieces called <b>components</b>.
+        </p>
+        <p>Many big companies use react (like  <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="external">Discord</a>
+          and
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="external">Facebook</a>) and so can you! This guide is means to make your journey into React a little bit easier.
         </p>
         
         <p>P.S. if you want to skip ahead to a certain point in the guide, use the navbar on the left! </p>
@@ -43,7 +51,7 @@
             <div class="next-text">
               <div>Next:</div>
               <img src="images/right-arrow.svg" height="20px"/></div>
-            <div class="next-link">learn more about APIs</div>
+            <div class="next-link">but why use React?</div>
           </a>
         </div>
     </div>
